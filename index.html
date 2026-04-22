@@ -29,7 +29,6 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
 .app{max-width:560px;margin:0 auto;padding:1.25rem 1rem 3rem}
 
-/* — reused from parent — */
 .hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:1rem;overflow:hidden}
 .hero-body{padding:1rem 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.25rem}
 .hero-tag{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
@@ -40,76 +39,64 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 .section-label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:1.25rem 0 .6rem}
 
-/* — pricing cards — */
 .price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:.625rem;overflow:hidden;-webkit-tap-highlight-color:transparent}
-
 .card-row{display:flex;justify-content:space-between;align-items:center;padding:.875rem 1.125rem;cursor:pointer;gap:12px;user-select:none}
 .card-row:hover{background:var(--chip)}
 .card-row:active{background:var(--chip)}
-
 .card-left{display:flex;flex-direction:column;gap:3px}
 .card-name{font-size:14px;font-weight:600;color:var(--text)}
 .card-hint{font-size:12px;color:var(--muted)}
-
 .card-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.card-total{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.5px}
 .chevron{font-size:12px;color:var(--muted);transition:transform .25s}
 .chevron.open{transform:rotate(180deg)}
-
 .exp-badge{font-size:11px;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap;flex-shrink:0}
 .b-teal{background:#E1F5EE;color:#085041}
 .b-purple{background:#EEEDFE;color:#3c3489}
 .b-amber{background:#FEF3E1;color:#7a4a00}
 
-/* — flip detail panel — */
 .price-detail{border-top:1px solid var(--border);display:none;flex-direction:column;gap:0;overflow:hidden}
 .price-detail.open{display:flex}
 
-/* flip stage rows */
-.stage{
-  padding:.875rem 1.125rem;
-  display:flex;flex-direction:column;gap:3px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-}
-.stage:last-of-type{border-bottom:none}
+/* kiosk package stages */
+.pkg-stage{padding:.875rem 1.125rem;display:flex;flex-direction:column;gap:7px;border-bottom:1px solid var(--border)}
+.pkg-stage:last-of-type{border-bottom:none}
+@keyframes slideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+.pkg-stage.revealed{animation:slideIn .28s ease both}
 
-/* slide-in animation */
-@keyframes slideIn{
-  from{opacity:0;transform:translateX(18px)}
-  to{opacity:1;transform:translateX(0)}
-}
-.stage.revealed{animation:slideIn .28s ease both}
+.pkg-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pkg-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pkg-tag{font-size:11px;padding:2px 10px;border-radius:var(--r-pill);background:var(--chip);color:var(--muted);border:1px solid var(--border)}
 
-.stage-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.stage-price{font-size:26px;font-weight:700;letter-spacing:-.6px;color:var(--text)}
-.stage-note{font-size:12px;color:var(--muted)}
+.pkg-price-row{display:flex;align-items:baseline;gap:5px}
+.pkg-price{font-size:26px;font-weight:700;letter-spacing:-.6px;color:var(--text)}
+.pkg-price-sub{font-size:13px;color:var(--muted)}
+
+.split-row{display:flex;align-items:center;gap:8px}
+.split-pill{display:flex;border-radius:var(--r-pill);overflow:hidden;border:1px solid var(--border);font-size:11px;font-weight:600}
+.split-you{background:#E1F5EE;color:#085041;padding:3px 12px}
+.split-hotel{background:var(--chip);color:var(--muted);padding:3px 12px}
+.split-label{font-size:11px;color:var(--muted)}
+
+.pkg-includes{display:flex;flex-wrap:wrap;gap:5px}
+.inc-chip{font-size:11px;padding:3px 10px;border-radius:var(--r-pill);background:var(--chip);color:var(--muted);border:1px solid var(--border)}
+.pkg-note{font-size:12px;color:var(--muted);font-style:italic}
 
 /* tap hint */
-.tap-hint{font-size:12px;color:var(--muted);padding:.5rem 1.125rem .875rem;display:flex;align-items:center;gap:6px}
+.tap-hint{font-size:12px;color:var(--muted);padding:.5rem 1.125rem .75rem;display:flex;align-items:center;gap:6px}
 .tap-dot{width:6px;height:6px;border-radius:50%;background:var(--border);display:inline-block}
 .tap-dot.active{background:var(--muted)}
 
-/* unlock cta */
-.unlock-btn{
-  margin:.25rem 1.125rem .875rem;
-  font-size:13px;font-weight:600;
-  padding:7px 18px;border-radius:var(--r-pill);
-  background:var(--text);color:var(--surface);
-  border:none;cursor:pointer;align-self:flex-start;
-  display:none;
-}
+.unlock-btn{margin:.125rem 1.125rem .875rem;font-size:13px;font-weight:600;padding:7px 18px;border-radius:var(--r-pill);background:var(--text);color:var(--surface);border:none;cursor:pointer;align-self:flex-start;display:none}
 .unlock-btn:hover{opacity:.85}
 .unlock-btn.visible{display:inline-block}
 
-/* — includes — */
+.coming-soon{padding:.875rem 1.125rem;font-size:13px;color:var(--muted);font-style:italic}
+
 .includes-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:.875rem 1.125rem;margin-top:1rem}
 .filter-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase}
 .includes-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
 .inc-item{font-size:12px;color:var(--muted);padding:6px 10px;background:var(--chip);border-radius:var(--r-sm);border:1px solid var(--border)}
 
-/* — contact — */
 .contact-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:.875rem 1.125rem;margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .contact-text{font-size:13px;color:var(--muted)}
 .contact-link{font-size:13px;font-weight:600;color:var(--text);text-decoration:none;padding:6px 16px;border-radius:var(--r-pill);border:1px solid var(--border)}
@@ -119,7 +106,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .signature a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
 .signature a:hover{color:var(--text)}
 
-/* reset link */
 .reset-row{text-align:right;margin-bottom:.5rem}
 .reset-btn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .reset-btn:hover{color:var(--text)}
@@ -162,159 +148,171 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <div class="signature">Built by <a href="https://creatis.in/pages/stack" target="_blank" rel="noopener">The Creatis Stack</a></div>
 
 </div>
-
 <script>
 const BOOK = "https://onedayinnovember.in/pages/contact";
 
 const PACKAGES = [
   {
     id: "kiosk",
+    type: "kiosk",
     name: "Kiosk",
     hint: "Hotel lobbies · Pop-ups · Retail",
     badge: "Drop-in", badgeCls: "b-teal",
-    total: 8500,
-    upfront: 3000,
-    upfrontNote: "Booking deposit",
-    monthly: 1500,
-    monthlyNote: "/ month · 4-month retainer",
-    guests: "Up to 15 guests per slot"
+    guests: "Ongoing placement · lobby or common area",
+    plans: [
+      {
+        label: "Package 1",
+        monthly: 5000,
+        splitYou: 70, splitHotel: 30,
+        deposit: 6,
+        includes: ["Craft kits only"],
+        note: "Cart placed in hotel space, kits sold to guests"
+      },
+      {
+        label: "Package 2",
+        monthly: 10000,
+        splitYou: 70, splitHotel: 30,
+        deposit: 3,
+        includes: ["Craft kits", "Weekly demo by print master"],
+        note: "Everything in Package 1, plus live craft sessions"
+      }
+    ]
   },
   {
     id: "wedding",
+    type: "standard",
     name: "Wedding",
     hint: "Ceremonies · Mehendi · Receptions",
     badge: "Intimate", badgeCls: "b-purple",
-    total: 0,
-    upfront: 0,
-    upfrontNote: "Booking deposit",
-    monthly: 0,
-    monthlyNote: "/ month · 4-month plan",
     guests: "Up to 40 guests"
   },
   {
     id: "corporate",
+    type: "standard",
     name: "Corporate",
     hint: "Team events · Brand activations · Offsites",
     badge: "Full day", badgeCls: "b-amber",
-    total: 0,
-    upfront: 0,
-    upfrontNote: "Booking deposit",
-    monthly: 0,
-    monthlyNote: "/ month · 4-month retainer",
     guests: "Up to 80 guests"
   }
 ];
 
-// stage: 0=closed, 1=total shown, 2=upfront shown, 3=monthly shown
 const state = { kiosk: 0, wedding: 0, corporate: 0 };
 
-function fmt(n) {
-  return "₹" + n.toLocaleString("en-IN");
+function buildKioskCard(pkg) {
+  const s = state[pkg.id];
+  const card = document.createElement("div");
+  card.className = "price-card";
+
+  const row = document.createElement("div");
+  row.className = "card-row";
+  row.innerHTML = `
+    <div class="card-left">
+      <span class="card-name">${pkg.name}</span>
+      <span class="card-hint">${pkg.hint}</span>
+      <span style="font-size:11px;color:var(--muted);margin-top:2px">${pkg.guests}</span>
+    </div>
+    <div class="card-right">
+      <span class="exp-badge ${pkg.badgeCls}">${pkg.badge}</span>
+      <span class="chevron ${s > 0 ? 'open' : ''}">▼</span>
+    </div>`;
+  row.onclick = () => toggleCard(pkg.id);
+
+  const det = document.createElement("div");
+  det.className = "price-detail" + (s > 0 ? " open" : "");
+
+  pkg.plans.forEach((plan, i) => {
+    const visible = s >= i + 1;
+    const stg = document.createElement("div");
+    stg.className = "pkg-stage" + (visible ? " revealed" : "");
+    stg.style.display = visible ? "" : "none";
+    stg.innerHTML = `
+      <div class="pkg-header">
+        <span class="pkg-label">${plan.label}</span>
+        <span class="pkg-tag">Monthly rent</span>
+      </div>
+      <div class="pkg-price-row">
+        <span class="pkg-price">₹${plan.monthly.toLocaleString("en-IN")}</span>
+        <span class="pkg-price-sub">/ month</span>
+      </div>
+      <div class="split-row">
+        <div class="split-pill">
+          <span class="split-you">${plan.splitYou}% you</span>
+          <span class="split-hotel">${plan.splitHotel}% hotel</span>
+        </div>
+        <span class="split-label">on kit sales revenue</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:1px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Deposit</span>
+        <span style="font-size:13px;font-weight:600;color:var(--text)">₹${(plan.monthly * plan.deposit).toLocaleString("en-IN")}</span>
+        <span style="font-size:11px;color:var(--muted)">(${plan.deposit} months · refundable)</span>
+      </div>
+      <div class="pkg-includes">${plan.includes.map(inc => `<span class="inc-chip">✦ ${inc}</span>`).join("")}</div>
+      <span class="pkg-note">${plan.note}</span>`;
+    det.appendChild(stg);
+  });
+
+  // tap hint
+  const hint = document.createElement("div");
+  hint.className = "tap-hint";
+  const dots = [1,2].map(i => `<span class="tap-dot ${s >= i ? 'active' : ''}"></span>`).join("");
+  const hintText = s === 0 ? "Tap to see Package 1" : s === 1 ? "Tap to see Package 2" : "Both packages revealed";
+  hint.innerHTML = dots + `<span style="margin-left:4px">${hintText}</span>`;
+  det.appendChild(hint);
+
+  const cta = document.createElement("button");
+  cta.className = "unlock-btn" + (s >= 2 ? " visible" : "");
+  cta.textContent = "Get started →";
+  cta.onclick = (e) => { e.stopPropagation(); window.open(BOOK, "_blank"); };
+  det.appendChild(cta);
+
+  card.appendChild(row);
+  card.appendChild(det);
+  return card;
+}
+
+function buildStandardCard(pkg) {
+  const s = state[pkg.id];
+  const card = document.createElement("div");
+  card.className = "price-card";
+
+  const row = document.createElement("div");
+  row.className = "card-row";
+  row.innerHTML = `
+    <div class="card-left">
+      <span class="card-name">${pkg.name}</span>
+      <span class="card-hint">${pkg.hint}</span>
+      <span style="font-size:11px;color:var(--muted);margin-top:2px">${pkg.guests}</span>
+    </div>
+    <div class="card-right">
+      <span class="exp-badge ${pkg.badgeCls}">${pkg.badge}</span>
+      <span class="chevron ${s > 0 ? 'open' : ''}">▼</span>
+    </div>`;
+  row.onclick = () => toggleCard(pkg.id);
+
+  const det = document.createElement("div");
+  det.className = "price-detail" + (s > 0 ? " open" : "");
+  det.innerHTML = `<div class="coming-soon">Pricing coming soon — <a href="${BOOK}" target="_blank" rel="noopener" style="color:var(--text);font-weight:600;text-decoration:none">reach out to discuss</a>.</div>`;
+
+  card.appendChild(row);
+  card.appendChild(det);
+  return card;
 }
 
 function renderAll() {
   const list = document.getElementById("price-list");
   list.innerHTML = "";
   PACKAGES.forEach(pkg => {
-    const s = state[pkg.id];
-    const card = document.createElement("div");
-    card.className = "price-card";
-    card.id = "card-" + pkg.id;
-
-    // — header row —
-    const row = document.createElement("div");
-    row.className = "card-row";
-    row.innerHTML = `
-      <div class="card-left">
-        <span class="card-name">${pkg.name}</span>
-        <span class="card-hint">${pkg.hint}</span>
-        <span style="font-size:11px;color:var(--muted);margin-top:2px">${pkg.guests}</span>
-      </div>
-      <div class="card-right">
-        <span class="exp-badge ${pkg.badgeCls}">${pkg.badge}</span>
-        <span class="chevron ${s > 0 ? 'open' : ''}">▼</span>
-      </div>
-    `;
-    row.onclick = () => toggleCard(pkg.id);
-
-    // — detail panel —
-    const det = document.createElement("div");
-    det.className = "price-detail" + (s > 0 ? " open" : "");
-    det.id = "det-" + pkg.id;
-
-    // stage 1 — total
-    const stg1 = document.createElement("div");
-    stg1.className = "stage" + (s >= 1 ? " revealed" : "");
-    stg1.id = "stg1-" + pkg.id;
-    stg1.innerHTML = `
-      <span class="stage-label">Total package value</span>
-      <span class="stage-price">${fmt(pkg.total)}</span>
-      <span class="stage-note">Complete experience, all-in</span>
-    `;
-
-    // stage 2 — upfront
-    const stg2 = document.createElement("div");
-    stg2.className = "stage" + (s >= 2 ? " revealed" : "");
-    stg2.id = "stg2-" + pkg.id;
-    stg2.style.display = s >= 2 ? "" : "none";
-    stg2.innerHTML = `
-      <span class="stage-label">Pay today</span>
-      <span class="stage-price">${fmt(pkg.upfront)}</span>
-      <span class="stage-note">${pkg.upfrontNote}</span>
-    `;
-
-    // stage 3 — monthly
-    const stg3 = document.createElement("div");
-    stg3.className = "stage" + (s >= 3 ? " revealed" : "");
-    stg3.id = "stg3-" + pkg.id;
-    stg3.style.display = s >= 3 ? "" : "none";
-    stg3.innerHTML = `
-      <span class="stage-label">Then monthly</span>
-      <span class="stage-price">${fmt(pkg.monthly)} <span style="font-size:14px;font-weight:400;color:var(--muted)">${pkg.monthlyNote}</span></span>
-      <span class="stage-note">Remaining balance spread across the plan</span>
-    `;
-
-    // tap hint dots
-    const hint = document.createElement("div");
-    hint.className = "tap-hint";
-    hint.id = "hint-" + pkg.id;
-
-    const dots = [1,2,3].map(i => `<span class="tap-dot ${s >= i ? 'active' : ''}"></span>`).join("");
-    if (s < 3) {
-      hint.innerHTML = dots + `<span style="margin-left:4px">${s === 1 ? 'Tap to reveal upfront cost' : s === 2 ? 'Tap to reveal monthly plan' : 'Tap to see pricing'}</span>`;
-    } else {
-      hint.innerHTML = dots + `<span style="margin-left:4px">Full pricing revealed</span>`;
-    }
-
-    // book cta
-    const cta = document.createElement("button");
-    cta.className = "unlock-btn" + (s === 3 ? " visible" : "");
-    cta.textContent = "Get started →";
-    cta.onclick = (e) => { e.stopPropagation(); window.open(BOOK, "_blank"); };
-
-    det.appendChild(stg1);
-    det.appendChild(stg2);
-    det.appendChild(stg3);
-    det.appendChild(hint);
-    det.appendChild(cta);
-
-    card.appendChild(row);
-    card.appendChild(det);
-    list.appendChild(card);
+    list.appendChild(pkg.type === "kiosk" ? buildKioskCard(pkg) : buildStandardCard(pkg));
   });
 }
 
 function toggleCard(id) {
+  const pkg = PACKAGES.find(p => p.id === id);
   const s = state[id];
-  if (s === 0) {
-    // open and show total
-    state[id] = 1;
-  } else if (s < 3) {
-    // advance stage
-    state[id] = s + 1;
+  if (pkg.type === "kiosk") {
+    state[id] = s >= 2 ? 0 : s + 1;
   } else {
-    // close
-    state[id] = 0;
+    state[id] = s === 0 ? 1 : 0;
   }
   renderAll();
 }
