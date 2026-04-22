@@ -244,7 +244,7 @@ function buildKioskCard(pkg) {
       <div style="display:flex;align-items:center;gap:6px;margin-top:1px">
         <span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Deposit</span>
         <span style="font-size:13px;font-weight:600;color:var(--text)">₹${(plan.monthly * plan.deposit).toLocaleString("en-IN")}</span>
-        <span style="font-size:11px;color:var(--muted)">(${plan.deposit} months · refundable)</span>
+        <span style="font-size:11px;color:var(--muted)">(${plan.deposit} months · non-refundable)</span>
       </div>
       <div class="pkg-includes">${plan.includes.map(inc => `<span class="inc-chip">✦ ${inc}</span>`).join("")}</div>
       <span class="pkg-note">${plan.note}</span>`;
