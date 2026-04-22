@@ -170,11 +170,18 @@ const PACKAGES = [
       },
       {
         label: "Package 2",
-        monthly: 10000,
+        monthly: 15000,
         splitYou: 70, splitHotel: 30,
         deposit: 3,
         includes: ["Craft kits", "Weekly demo by print master"],
         note: "Everything in Package 1, plus live craft sessions"
+      },
+      {
+        label: "Package 3",
+        type: "privatelabel",
+        monthly: 0,
+        includes: ["Custom-printed packaging", "Custom block designs", "Custom fabric labels", "On-site staff training (1 session)", "Kit restocking billed per order"],
+        note: "Your brand. Our craft. Full ownership from day one."
       }
     ]
   },
@@ -225,42 +232,59 @@ function buildKioskCard(pkg) {
     const stg = document.createElement("div");
     stg.className = "pkg-stage" + (visible ? " revealed" : "");
     stg.style.display = visible ? "" : "none";
-    stg.innerHTML = `
-      <div class="pkg-header">
-        <span class="pkg-label">${plan.label}</span>
-        <span class="pkg-tag">Monthly rent</span>
-      </div>
-      <div class="pkg-price-row">
-        <span class="pkg-price">₹${plan.monthly.toLocaleString("en-IN")}</span>
-        <span class="pkg-price-sub">/ month</span>
-      </div>
-      <div class="split-row">
-        <div class="split-pill">
-          <span class="split-you">${plan.splitYou}% you</span>
-          <span class="split-hotel">${plan.splitHotel}% venue</span>
+    if (plan.type === "privatelabel") {
+      stg.innerHTML = `
+        <div class="pkg-header">
+          <span class="pkg-label">${plan.label}</span>
+          <span class="pkg-tag">Private Label</span>
         </div>
-        <span class="split-label">on kit sales revenue</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;margin-top:1px">
-        <span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Deposit</span>
-        <span style="font-size:13px;font-weight:600;color:var(--text)">₹${(plan.monthly * plan.deposit).toLocaleString("en-IN")}</span>
-        <span style="font-size:11px;color:var(--muted)">(${plan.deposit} months · non-refundable)</span>
-      </div>
-      <div class="pkg-includes">${plan.includes.map(inc => `<span class="inc-chip">✦ ${inc}</span>`).join("")}</div>
-      <span class="pkg-note">${plan.note}</span>`;
+        <div class="pkg-price-row">
+          <span class="pkg-price" style="font-size:18px;color:var(--muted);font-weight:500">Price on requirements</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px">
+          <span style="font-size:11px;padding:3px 10px;border-radius:var(--r-pill);background:#E1F5EE;color:#085041;font-weight:600;border:none">No monthly rent</span>
+          <span style="font-size:11px;padding:3px 10px;border-radius:var(--r-pill);background:#E1F5EE;color:#085041;font-weight:600;border:none">No revenue split</span>
+        </div>
+        <div class="pkg-includes" style="margin-top:6px">${plan.includes.map(inc => `<span class="inc-chip">✦ ${inc}</span>`).join("")}</div>
+        <span class="pkg-note">${plan.note}</span>`;
+    } else {
+      stg.innerHTML = `
+        <div class="pkg-header">
+          <span class="pkg-label">${plan.label}</span>
+          <span class="pkg-tag">Monthly rent</span>
+        </div>
+        <div class="pkg-price-row">
+          <span class="pkg-price">₹${plan.monthly.toLocaleString("en-IN")}</span>
+          <span class="pkg-price-sub">/ month</span>
+        </div>
+        <div class="split-row">
+          <div class="split-pill">
+            <span class="split-you">${plan.splitYou}% you</span>
+            <span class="split-hotel">${plan.splitHotel}% venue</span>
+          </div>
+          <span class="split-label">on kit sales revenue</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:1px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Deposit</span>
+          <span style="font-size:13px;font-weight:600;color:var(--text)">₹${(plan.monthly * plan.deposit).toLocaleString("en-IN")}</span>
+          <span style="font-size:11px;color:var(--muted)">(${plan.deposit} months · non-refundable)</span>
+        </div>
+        <div class="pkg-includes">${plan.includes.map(inc => `<span class="inc-chip">✦ ${inc}</span>`).join("")}</div>
+        <span class="pkg-note">${plan.note}</span>`;
+    }
     det.appendChild(stg);
   });
 
   // tap hint
   const hint = document.createElement("div");
   hint.className = "tap-hint";
-  const dots = [1,2].map(i => `<span class="tap-dot ${s >= i ? 'active' : ''}"></span>`).join("");
-  const hintText = s === 0 ? "Tap to see Package 1" : s === 1 ? "Tap to see Package 2" : "Both packages revealed";
+  const dots = [1,2,3].map(i => `<span class="tap-dot ${s >= i ? 'active' : ''}"></span>`).join("");
+  const hintText = s === 0 ? "Tap to see Package 1" : s === 1 ? "Tap to see Package 2" : s === 2 ? "Tap to see Package 3" : "All packages revealed";
   hint.innerHTML = dots + `<span style="margin-left:4px">${hintText}</span>`;
   det.appendChild(hint);
 
   const cta = document.createElement("button");
-  cta.className = "unlock-btn" + (s >= 2 ? " visible" : "");
+  cta.className = "unlock-btn" + (s >= 3 ? " visible" : "");
   cta.textContent = "Get started →";
   cta.onclick = (e) => { e.stopPropagation(); window.open(BOOK, "_blank"); };
   det.appendChild(cta);
@@ -310,7 +334,7 @@ function toggleCard(id) {
   const pkg = PACKAGES.find(p => p.id === id);
   const s = state[id];
   if (pkg.type === "kiosk") {
-    state[id] = s >= 2 ? 0 : s + 1;
+    state[id] = s >= 3 ? 0 : s + 1;
   } else {
     state[id] = s === 0 ? 1 : 0;
   }
